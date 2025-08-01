@@ -39,16 +39,16 @@ const Header = () => {
       <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#ededed] bg-[#FFF5EE] px-4 md:px-10 py-3 relative">
         <div className="flex items-center gap-4 md:gap-8">
           <Link to="/" className="flex items-center gap-2 md:gap-4 text-[#141414]">
-            <h2 className="text-[#141414] text-lg font-bold leading-tight tracking-[-0.015em]">VINTAGE HUB</h2>
+            <h2 className="text-[#141414] text-lg font-bold leading-tight tracking-[-0.015em]">BY HIBA</h2>
           </Link>
 
           <div className="hidden md:flex items-center gap-5 lg:gap-9">
             <Link to="/" className="text-[#141414] text-sm font-medium transition">Home</Link>
             <Link to="/products?category=Bracelets" className="text-[#141414] text-sm font-medium transition">Bracelets ˚⊹♡</Link>
-            <Link to="/products?category=Phone charms" className="text-[#141414] text-sm font-medium  transition">
-Phone charms ⋆｡𖦹°</Link>
-            <Link to="/products?category=keychains" className="text-[#141414] text-sm font-medium  transition">keychains ˚⋆𐙚｡</Link>
-            <Link to="/products?category=Necklaces" className="text-[#141414] text-sm font-medium  transition">Necklaces ˚⋆𐙚｡</Link>
+            <Link to="/products?category=Pendants" className="text-[#141414] text-sm font-medium  transition">
+Pendants ⋆｡𖦹°</Link>
+            <Link to="/products?category=Earrings" className="text-[#141414] text-sm font-medium  transition">Earrings ˚⋆𐙚｡</Link>
+            <Link to="/products?category=Resin jhumkas" className="text-[#141414] text-sm font-medium  transition">Resin jhumkas ˚⋆𐙚｡</Link>
             {adminEmails.includes(user?.email) && (
               <Link to="/admin" className="text-[#141414] text-sm font-medium hover:text-[#0c77f2] transition">Admin</Link>
             )}
@@ -141,12 +141,12 @@ Phone charms ⋆｡𖦹°</Link>
               </div>
 
               <Link to="/products?category=Bracelets" onClick={() => setIsMenuOpen(false)} className="block px-4 py-3 hover:bg-[#FFE9DD] rounded-lg transition">Bracelets ˚⊹♡</Link>
-              <Link to="/products?category=Phone charms" onClick={() => setIsMenuOpen(false)} className="blocsk px-4 py-3 hover:bg-[#FFE9DD] rounded-lg transition">Phone charms ⋆｡𖦹°
+              <Link to="/products?category=Pendants" onClick={() => setIsMenuOpen(false)} className="blocsk px-4 py-3 hover:bg-[#FFE9DD] rounded-lg transition">Pendants ⋆｡𖦹°
 </Link>
-              <Link to="/products?category=keychains" onClick={() => setIsMenuOpen(false)} className="block px-4 py-3 hover:bg-[#FFE9DD] rounded-lg transition">
-keychains ˚⋆𐙚｡
+              <Link to="/products?category=Earrings" onClick={() => setIsMenuOpen(false)} className="block px-4 py-3 hover:bg-[#FFE9DD] rounded-lg transition">
+Earrings˚⋆𐙚｡
 </Link>
-              <Link to="/products?category=Necklaces" onClick={() => setIsMenuOpen(false)} className="block px-4 py-3 hover:bg-[#FFE9DD] rounded-lg transition">Necklaces ｡°✩
+              <Link to="/products?category=Resin jhumkas" onClick={() => setIsMenuOpen(false)} className="block px-4 py-3 hover:bg-[#FFE9DD] rounded-lg transition">Resin jhumkas ｡°✩
 </Link>
 
               {adminEmails.includes(user?.email) && (

@@ -18,7 +18,7 @@ const BuyNowCheckout = () => {
     region: '',
     country: '',
     shippingMethod: 'Standard Delivery',
-    paymentMethod: 'EasyPaisa', // Default to EasyPaisa, will add COD option
+    paymentMethod: 'JazzCash/Bank Transfer',
     promoCode: '',
     notes: '',
   });
@@ -47,7 +47,8 @@ const BuyNowCheckout = () => {
   }, []);
 
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0);
-  const shippingCost = 230;
+const shippingCost = form.city.trim().toLowerCase() === 'lahore' ? 200 : 350;
+
   const total = subtotal + shippingCost;
 
   const handleChange = (e) => {
@@ -62,8 +63,8 @@ const BuyNowCheckout = () => {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
     
-    // Clear the Base64 string if payment method changes from EasyPaisa
-    if (name === 'paymentMethod' && value !== 'EasyPaisa') {
+    // Clear the Base64 string if payment method changes from JazzCash/Bank Transfer
+    if (name === 'paymentMethod' && value !== 'JazzCash/Bank Transfer') {
       setBankTransferProofBase64(null);
       setErrors(prev => ({ ...prev, bankTransferProof: '' }));
     }
@@ -121,8 +122,8 @@ const BuyNowCheckout = () => {
       newErrors.phone = 'Please enter a valid phone number (at least 7 digits)';
     }
 
-    if (form.paymentMethod === 'EasyPaisa' && !bankTransferProofBase64) {
-      newErrors.bankTransferProof = 'Please upload a screenshot of your EasyPaisa transaction.';
+    if (form.paymentMethod === 'JazzCash/Bank Transfer' && !bankTransferProofBase64) {
+      newErrors.bankTransferProof = 'Please upload a screenshot of your JazzCash transfer or bank transfer receipt.';
     }
 
     setErrors(newErrors);
@@ -183,7 +184,7 @@ const BuyNowCheckout = () => {
       createdAt: new Date(),
       status: 'processing',
       buyNow: true,
-      bankTransferProofBase64: form.paymentMethod === 'EasyPaisa' ? bankTransferProofBase64 : null,
+      bankTransferProofBase64: form.paymentMethod === 'JazzCash/Bank Transfer' ? bankTransferProofBase64 : null,
     };
 
     try {
@@ -384,7 +385,7 @@ const BuyNowCheckout = () => {
                   <div className="ml-3">
                     <p className="font-medium text-gray-900 text-sm sm:text-base">Standard Delivery</p>
                     <p className="text-xs sm:text-sm text-gray-500">
-                      PKR 230 - Delivery in 4-5 business days
+                  PKR 200 for lahore and 350 for other cities - Delivery in 4-5 business days
                     </p>
                   </div>
                 </label>
@@ -393,49 +394,38 @@ const BuyNowCheckout = () => {
               <h2 className="text-lg sm:text-xl font-semibold mt-8 mb-6 pb-2 border-b">Payment Method</h2>
               
               <div className="space-y-4">
-                {/* EasyPaisa Option */}
-                <label className="flex items-center p-4 border rounded-md hover:border-black cursor-pointer">
-                  <input
-                    type="radio"
-                    name="paymentMethod"
-                    value="EasyPaisa"
-                    checked={form.paymentMethod === 'EasyPaisa'}
-                    onChange={handleChange}
-                    className="h-4 w-4 text-black focus:ring-black border-gray-300"
-                  />
-                  <span className="ml-3 font-medium text-gray-900 text-sm sm:text-base">EasyPaisa</span>
-                </label>
-
-                {/* Cash on Delivery (COD) Option */}
-                <label className="flex items-center p-4 border rounded-md hover:border-black cursor-pointer">
-                  <input
-                    type="radio"
-                    name="paymentMethod"
-                    value="Cash on Delivery"
-                    checked={form.paymentMethod === 'Cash on Delivery'}
-                    onChange={handleChange}
-                    className="h-4 w-4 text-black focus:ring-black border-gray-300"
-                  />
-                  <span className="ml-3 font-medium text-gray-900 text-sm sm:text-base">Cash on Delivery</span>
-                </label>
+                {['JazzCash/Bank Transfer', 'Cash on Delivery'].map(method => (
+                  <label key={method} className="flex items-center p-4 border rounded-md hover:border-black cursor-pointer">
+                    <input
+                      type="radio"
+                      name="paymentMethod"
+                      value={method}
+                      checked={form.paymentMethod === method}
+                      onChange={handleChange}
+                      className="h-4 w-4 text-black focus:ring-black border-gray-300"
+                    />
+                    <span className="ml-3 font-medium text-gray-900 text-sm sm:text-base">{method}</span>
+                  </label>
+                ))}
               </div>
 
-              {form.paymentMethod === 'EasyPaisa' && (
+              {form.paymentMethod === 'JazzCash/Bank Transfer' && (
                 <div className="mt-6 p-4 border border-blue-300 bg-blue-50 rounded-md">
-                  <h3 className="text-base sm:text-lg font-semibold mb-3">EasyPaisa Payment Details</h3>
+                  <h3 className="text-base sm:text-lg font-semibold mb-3">JazzCash/Bank Transfer Details</h3>
                   <p className="text-gray-700 mb-4 text-sm sm:text-base">
-                    Please send the total amount of PKR {total.toLocaleString()} to our EasyPaisa account:
+                    Please transfer the total amount of PKR {total.toLocaleString()} to our account:
                   </p>
                   <ul className="list-disc list-inside text-gray-800 mb-4 text-sm sm:text-base">
                     <li><strong>Account Name:</strong> Maham </li>
-                    <li><strong>EasyPaisa Number:</strong> 03105816903</li>
+                    <li><strong>JazzCash Number:</strong> 03105816903</li>
+                    <li><strong>Bank Account Details:</strong> Available upon request</li>
                   </ul>
                   <p className="text-gray-700 mb-4 text-sm sm:text-base">
-                    After making the payment, please upload a screenshot of the transaction as proof of payment.
+                    After making the transfer, please upload a screenshot of the transaction or bank transfer receipt as proof of payment.
                   </p>
                   <div>
                     <label htmlFor="bankTransferProof" className="block text-sm font-medium text-gray-700 mb-1">
-                      Upload EasyPaisa Transaction Screenshot*
+                      Upload Transfer Screenshot/Receipt*
                     </label>
                     <input
                       id="bankTransferProof"

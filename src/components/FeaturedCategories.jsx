@@ -3,16 +3,16 @@ import { Link } from 'react-router-dom';
 
 const categories = [
     {
-    id: 3,
+    id: 1,
     title: "Bracelets ˚⊹♡",
-    imageUrl: "https://scontent.flhe3-2.fna.fbcdn.net/v/t1.15752-9/521349181_737084372371080_7694854766131764488_n.jpg?stp=dst-jpg_p480x480_tt6&_nc_cat=106&ccb=1-7&_nc_sid=0024fc&_nc_ohc=Fsv5uGhELl4Q7kNvwG_lAdO&_nc_oc=AdlYcUu20aZCwgodBLHx-MwgDblAqI5nnRiz5bmELqfX8JeL2d0ddTzNf9cA1x1jgv4&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.flhe3-2.fna&oh=03_Q7cD2wHPdHHYuUKWZMnyDNGfJmoIh-195cqknxDBQhvyKSMC3A&oe=68AC0C82",
+    imageUrl: "https://scontent.fskt1-1.fna.fbcdn.net/v/t1.15752-9/525024338_642833308844378_6043913897455377992_n.jpg?stp=dst-jpg_p480x480_tt6&_nc_cat=100&ccb=1-7&_nc_sid=0024fc&_nc_ohc=3Ff2DIBBG30Q7kNvwH3CvD2&_nc_oc=AdmLIk72lN_XE4vY0gzGJQMBtOyUF-HTsVBH4AoBojdBWP8aiImuovZgGBZmX-7ATYw&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fskt1-1.fna&oh=03_Q7cD2wGNK0WIy8HgGDmq5-EAiLxTrUOzVGJ9Z81yqKWH9Pb63g&oe=68B481BC",
     link: "Bracelets"
   },
   {
-    id: 1,
-    title: "Phone charms ⋆｡𖦹°",
-    imageUrl: "https://scontent.flhe7-1.fna.fbcdn.net/v/t1.15752-9/520909658_1678087256927900_4817397154280147514_n.jpg?stp=dst-jpg_s2048x2048_tt6&_nc_cat=101&ccb=1-7&_nc_sid=0024fc&_nc_ohc=-cJamvM0wWoQ7kNvwHjic2W&_nc_oc=AdnGYSG0N4xGE4ybxYKUmZoZaAmTl8C9MNh-ZMSB5zXBe7lCtxIBwzfkg97-6AXqces&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.flhe7-1.fna&oh=03_Q7cD2wGwZvJHpstnpnrNbDdtQrq6BD6DgSYoi2l9j3Ow040fmQ&oe=68AC3F8B",
-      link: "Phone charms",
+    id: 2,
+    title: "Pendants ⋆｡𖦹°",
+    imageUrl: "https://scontent.fskt1-1.fna.fbcdn.net/v/t1.15752-9/526286986_1947875569334194_6432178775595699056_n.jpg?stp=dst-jpg_s565x565_tt6&_nc_cat=101&ccb=1-7&_nc_sid=0024fc&_nc_ohc=hzi2kP2DyY0Q7kNvwEO2oRI&_nc_oc=Adk_8ftUe8ZCeB0ylNgoL17lA7FjARZFkx1cSCHZfNk_RodGMjmM2giL8Fq5Fkwpgc8&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fskt1-1.fna&oh=03_Q7cD2wEJBvYe0SkCsxymylXDD3uhRjEjjDV0eKnqXxlAc8DfZA&oe=68B471CB",
+      link: "Pendants",
   },
 
 
@@ -22,22 +22,34 @@ const categories = [
   //   imageUrl: "https://scontent.flhe7-2.fna.fbcdn.net/v/t1.15752-9/520429125_1334742338219253_2531984894124566733_n.jpg?stp=dst-jpg_s480x480_tt6&_nc_cat=103&ccb=1-7&_nc_sid=0024fc&_nc_ohc=j7XYMWWmVY8Q7kNvwFYLOQX&_nc_oc=Adkef7qEPDIiflArvyMlAj0FTg2JoPnp6bRd6DV5GSZcJB7m97b8m8ZRWL8id8lVe1k&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.flhe7-2.fna&oh=03_Q7cD2wF-rY8Fqy79pbeR3ML53F8zqAW-4GruhgPAjdrVNB5Twg&oe=68AC16BF"
   // },
       {
-    id: 2,
-    title: "keychains ˚⋆𐙚｡",
-    imageUrl: "https://scontent.flhe3-1.fna.fbcdn.net/v/t1.15752-9/521166975_734660132863062_8344427397155527878_n.jpg?stp=dst-jpg_p480x480_tt6&_nc_cat=108&ccb=1-7&_nc_sid=0024fc&_nc_ohc=_3dWxXDTf2AQ7kNvwH1m5H-&_nc_oc=AdkrOOuB66lOze65nVBUxtzwc30t81Apdwep51coHvlLCe3bNHXBtq_j8SyG158Us5Y&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.flhe3-1.fna&oh=03_Q7cD2wEBc-JVrARW0JcO0ob47QmdjD5VNbxweJm9gTI_uFcHdQ&oe=68AC460B",
-      link: "keychains"
+    id: 3,
+    title: "Earrings ˚⋆𐙚｡",
+    imageUrl: "https://scontent.fskt1-1.fna.fbcdn.net/v/t1.15752-9/525536730_2494229634266747_3171338560065245666_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=0024fc&_nc_ohc=VWBb3Bz-M-QQ7kNvwGqCH1k&_nc_oc=AdmeBA51mzkg67O6Su3X2a6Yo-SviFWwkjOGEs70OzQYya-oBJTOFdmioRlLOmtL07Q&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fskt1-1.fna&oh=03_Q7cD2wGGLi-EFidN0QIs06MD5vBPe5qxXlAHZ00V0IzB8CDNrg&oe=68B4880D",
+      link: "Earrings"
   },
       {
-    id: 5,
-    title: "Necklaces ｡°✩",
-    imageUrl:"https://scontent.flhe7-2.fna.fbcdn.net/v/t1.15752-9/520429125_1334742338219253_2531984894124566733_n.jpg?stp=dst-jpg_s480x480_tt6&_nc_cat=103&ccb=1-7&_nc_sid=0024fc&_nc_ohc=j7XYMWWmVY8Q7kNvwFYLOQX&_nc_oc=Adkef7qEPDIiflArvyMlAj0FTg2JoPnp6bRd6DV5GSZcJB7m97b8m8ZRWL8id8lVe1k&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.flhe7-2.fna&oh=03_Q7cD2wF-rY8Fqy79pbeR3ML53F8zqAW-4GruhgPAjdrVNB5Twg&oe=68AC16BF",
-     link: "Necklaces"
+    id: 4,
+    title: "Resin jhumkas ｡°✩",
+    imageUrl:"https://mail.google.com/mail/u/0?ui=2&ik=91e2725061&attid=0.4&permmsgid=msg-f:1839252043438834854&th=198655fd1d9544a6&view=fimg&fur=ip&permmsgid=msg-f:1839252043438834854&sz=s0-l75-ft&attbid=ANGjdJ9UHcbGtqr2RQXmVBXNb6sz-JGkhJVQh3WqB40znZ3xTni6KtS-TjHYip7-KWP7G4puA0y4SBAxRW8-ltvGvBnh3d7Y07joPOm282rPTKGggmM0BqLVuTwWSkc&disp=emb&realattid=ii_198655dd1cfd902dfb34&zw",
+     link: "Resin jhumkas"
   },
         {
     id: 5,
-    title: "Plushies / Trinkets ⋆⭒˚.⋆",
-    imageUrl:"https://scontent.flhe7-2.fna.fbcdn.net/v/t1.15752-9/525576846_1213728490767254_1766428545358139292_n.jpg?stp=dst-jpg_s480x480_tt6&_nc_cat=109&ccb=1-7&_nc_sid=0024fc&_nc_ohc=_BT1RcjUB3IQ7kNvwFYF7iA&_nc_oc=AdmwDteBLL-s_joZNncU601LCZdrCpmW9sspFevt0nLdtB0zgEHEY2eWI4KzhJbCsFs&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.flhe7-2.fna&oh=03_Q7cD2wENRdhZhSmaPM4YuqQ0mVuzXHSDxRlf_BrAemBjvMfR3Q&oe=68B3D4B9",
-     link: "Plushies"
+    title: "Vintage Collection⋆⭒˚.⋆",
+    imageUrl:"https://mail.google.com/mail/u/0?ui=2&ik=91e2725061&attid=0.5&permmsgid=msg-f:1839252043438834854&th=198655fd1d9544a6&view=fimg&fur=ip&permmsgid=msg-f:1839252043438834854&sz=s0-l75-ft&attbid=ANGjdJ_WOSTWO1zgj4IAhm_LZ9dtnp-Yx5gIvBxJUn0_AJf-GReHN-DpXKBtVwNbpjvCIzaiXTW0-8lRF-JaIqJ7zjKbshN4_b3QHJOZ4IZ9QVTRyJ1oL6vt6kYUi98&disp=emb&realattid=ii_198655e4562d910f7345&zw",
+     link: "Vintage Collection"
+  },
+  {
+      id: 6,
+    title: "Gifts ⋆⭒˚.⋆",
+    imageUrl:"https://mail.google.com/mail/u/0?ui=2&ik=91e2725061&attid=0.6&permmsgid=msg-f:1839252043438834854&th=198655fd1d9544a6&view=fimg&fur=ip&permmsgid=msg-f:1839252043438834854&sz=s0-l75-ft&attbid=ANGjdJ8qeTSiN9of0HCFaXNNbji8e5SXzMd2v-3WnE18DH8HjOpNfuyr9699ECKES5Pc6EAGt0T_8NZLwI4e8gLJM-BzCLyMsOE5MfSkfc3HlVi8fTIOvqfnsNOvXMc&disp=emb&realattid=ii_198655ecb77d7a2941a6&zw",
+     link: "Gifts"
+  },
+    {
+      id: 7,
+    title: "Flower preservation⋆⭒˚.⋆",
+    imageUrl:"https://mail.google.com/mail/u/0?ui=2&ik=91e2725061&attid=0.7&permmsgid=msg-f:1839252043438834854&th=198655fd1d9544a6&view=fimg&fur=ip&permmsgid=msg-f:1839252043438834854&sz=s0-l75-ft&attbid=ANGjdJ8QO-znAnuuTrHNvrkp8IDkEzEPSui90jXikiwD6MTeATNkuKGcOAnxwCv5gjBeg-T4yGDJ5a4KLqFkJWn2TiYSPqeq6h--D8vZPH3wldapb4AS75g2mUWcXI0&disp=emb&realattid=ii_198655f39b5d94955387&zw",
+     link: "Flower preservation"
   },
   //       {
   //   id: 6,
