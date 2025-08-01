@@ -415,11 +415,15 @@ const shippingCost = form.city.trim().toLowerCase() === 'lahore' ? 200 : 350;
                   <p className="text-gray-700 mb-4 text-sm sm:text-base">
                     Please transfer the total amount of PKR {total.toLocaleString()} to our account:
                   </p>
-                  <ul className="list-disc list-inside text-gray-800 mb-4 text-sm sm:text-base">
-                    <li><strong>Account Name:</strong> Maham </li>
-                    <li><strong>JazzCash Number:</strong> 03105816903</li>
-                    <li><strong>Bank Account Details:</strong> Available upon request</li>
+  <ul className="list-disc list-inside text-gray-800 text-sm sm:text-base mb-4">
+                     <li><strong>Account Name:</strong> Haba Amin </li>
+                    <li><strong>JazzCash Number:</strong> 03234016813</li>
+                    <li><strong>Bank Account Details:</strong> </li>
+                    <li><strong>Bank name</strong> Meezan Bank</li>
+                    <li><strong>Account name</strong> AYESHA AMIN</li>
+                    <li><strong>Account number</strong> 02360112042678</li>
                   </ul>
+                  
                   <p className="text-gray-700 mb-4 text-sm sm:text-base">
                     After making the transfer, please upload a screenshot of the transaction or bank transfer receipt as proof of payment.
                   </p>
