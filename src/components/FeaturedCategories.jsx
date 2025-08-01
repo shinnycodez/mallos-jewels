@@ -30,7 +30,7 @@ const categories = [
       {
     id: 4,
     title: "Resin jhumkas ｡°✩",
-    imageUrl:"https://scontent.flhe3-2.fna.fbcdn.net/v/t1.15752-9/525739796_2577973002553554_2792564749880080398_n.png?_nc_cat=110&ccb=1-7&_nc_sid=0024fc&_nc_ohc=rjv2zOG-G8cQ7kNvwH0IFsr&_nc_oc=Adl-skidLv8GMAqOuiKpW0JWqbt4Yg1ysYgxA8-_lGWwubZ5Bjb4SeCd4lTZMoJGzv8&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.flhe3-2.fna&oh=03_Q7cD2wHT0jiXrOPzHl0SPJVuEAEseCJ8uZyYN8_NUlgLWKn6tw&oe=68B496DB",
+    imageUrl:"https://scontent.flhe7-1.fna.fbcdn.net/v/t1.15752-9/526382878_3693244157472926_1800558568691793552_n.jpg?stp=dst-jpg_p480x480_tt6&_nc_cat=101&ccb=1-7&_nc_sid=0024fc&_nc_ohc=bCizp3RB4XUQ7kNvwF1Atc5&_nc_oc=Adk6opSm568u9QT-BF9gkRcmlxEHJPm3j2WhmN-89zotPwWieK-JOugKQRrE2b-kJmc&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.flhe7-1.fna&oh=03_Q7cD2wEBOuz81U6ZLUoqc84cXcNYU6Oy8_UM-d6Gx_UYVPaYQQ&oe=68B4A059",
      link: "Resin jhumkas"
   },
         {
