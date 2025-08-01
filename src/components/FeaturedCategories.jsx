@@ -51,6 +51,12 @@ const categories = [
     imageUrl:"https://mail.google.com/mail/u/0?ui=2&ik=91e2725061&attid=0.7&permmsgid=msg-f:1839252043438834854&th=198655fd1d9544a6&view=fimg&fur=ip&permmsgid=msg-f:1839252043438834854&sz=s0-l75-ft&attbid=ANGjdJ8QO-znAnuuTrHNvrkp8IDkEzEPSui90jXikiwD6MTeATNkuKGcOAnxwCv5gjBeg-T4yGDJ5a4KLqFkJWn2TiYSPqeq6h--D8vZPH3wldapb4AS75g2mUWcXI0&disp=emb&realattid=ii_198655f39b5d94955387&zw",
      link: "Flower preservation"
   },
+      {
+      id: 7,
+    title: "Rings⋆⭒˚.⋆",
+    imageUrl:"https://scontent.flhe7-1.fna.fbcdn.net/v/t1.15752-9/524769285_763827739370305_1636925045429649579_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=0024fc&_nc_ohc=l6B5QlwQuiYQ7kNvwHMs3sa&_nc_oc=AdmxW89NEjxsdB9QIpsBBvkoDd-mbDSs4mQ4TodMetfrbTEWEsju3xA8EApAp1QglFM&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.flhe7-1.fna&oh=03_Q7cD2wFRh47vgDNvagitPHYPNmdiFuCGCSVoPwuh_fWkx_5iZQ&oe=68B473CE",
+     link: "Rings"
+  },
   //       {
   //   id: 6,
   //   title: "Bag charms",
