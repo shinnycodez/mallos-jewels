@@ -57,6 +57,12 @@ const categories = [
     imageUrl:"https://scontent.flhe7-1.fna.fbcdn.net/v/t1.15752-9/524769285_763827739370305_1636925045429649579_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=0024fc&_nc_ohc=l6B5QlwQuiYQ7kNvwHMs3sa&_nc_oc=AdmxW89NEjxsdB9QIpsBBvkoDd-mbDSs4mQ4TodMetfrbTEWEsju3xA8EApAp1QglFM&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.flhe7-1.fna&oh=03_Q7cD2wFRh47vgDNvagitPHYPNmdiFuCGCSVoPwuh_fWkx_5iZQ&oe=68B473CE",
      link: "Rings"
   },
+      {
+      id: 7,
+    title: "3 piece sets⭒˚.⋆",
+    imageUrl:"https://scontent.flyp4-1.fna.fbcdn.net/v/t1.15752-9/526442102_1085864649733328_3983126921268614804_n.jpg?stp=dst-jpg_s640x640_tt6&_nc_cat=100&ccb=1-7&_nc_sid=0024fc&_nc_ohc=dGo8hkHZdf0Q7kNvwGgX4hg&_nc_oc=Adl6TuVgDvBN9enBYUKq7bwHYWA2FBWpfZDjJmZxPf2zH11b5xI12h2F1_vsRxa8L2k&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.flyp4-1.fna&oh=03_Q7cD3AFdeKqMLkqSHOmoIJGRr4pWlsTFuzceXDPSeaHkCkas8w&oe=68B7E6F9",
+     link: "3 piece sets"
+  },
   //       {
   //   id: 6,
   //   title: "Bag charms",
