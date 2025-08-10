@@ -27,8 +27,10 @@ const [formData, setFormData] = useState({
   image2: "",
   isTopProduct: false,
   available: true,
-  variationInput: "",      // for temporary input field
-  variations: [],          // array to hold variations like colors
+  variationInput: "",      // for temporary color input field
+  variations: [],          // array to hold color variations
+  sizeInput: "",          // for temporary size input field
+  sizes: [],              // array to hold size variations
 });
 
   const [products, setProducts] = useState([]);
@@ -190,7 +192,8 @@ const handleSubmit = async (e) => {
         images: [formData.image1, formData.image2],
         isTopProduct: formData.isTopProduct,
         available: formData.available,
-        variations: formData.variations, // Explicitly include variations
+        variations: formData.variations, // Color variations
+        sizes: formData.sizes, // Size variations
       });
       setSuccessMsg("✅ Product updated successfully!");
       setEditId(null);
@@ -204,7 +207,8 @@ const handleSubmit = async (e) => {
         images: [formData.image1, formData.image2],
         isTopProduct: formData.isTopProduct,
         available: formData.available,
-        variations: formData.variations, // Include variations for new products
+        variations: formData.variations, // Color variations
+        sizes: formData.sizes, // Size variations
         createdAt: serverTimestamp(),
       });
       setSuccessMsg("✅ Product added successfully!");
@@ -220,8 +224,10 @@ const handleSubmit = async (e) => {
       image2: "",
       isTopProduct: false,
       available: true,
-      variations: [], // Reset variations
-      variationInput: "" // Reset input field
+      variations: [], // Reset color variations
+      variationInput: "", // Reset color input field
+      sizes: [], // Reset size variations
+      sizeInput: "" // Reset size input field
     });
   } catch (err) {
     console.error("Error:", err);
@@ -252,8 +258,10 @@ const handleEdit = (product) => {
     image2: product.images?.[1] || "",
     isTopProduct: product.isTopProduct || false,
     available: product.available !== false,
-    variations: product.variations || [], // Add this line
-    variationInput: "" // Add this line
+    variations: product.variations || [], // Color variations
+    variationInput: "",
+    sizes: product.sizes || [], // Size variations
+    sizeInput: ""
   });
   setEditId(product.id);
   setShowForm(true);
@@ -345,8 +353,8 @@ const OrderDetails = ({ order }) => (
           <li key={i}>
             {item.title} – 
             {item.variation && ` Color: ${item.variation} –`}
-            {item.type && ` Type: ${item.type} –`}
             {item.size && ` Size: ${item.size} –`}
+            {item.type && ` Type: ${item.type} –`}
             Qty: {item.quantity} – 
             Price: PKR {item.price?.toLocaleString()}
           </li>
@@ -413,7 +421,7 @@ const OrderDetails = ({ order }) => (
 
 {/* Color Variations Input */}
 <div>
-  <label className="block text-sm sm:text-base font-medium text-gray-700 mb-1">Product Variations (e.g., Red, Yellow)</label>
+  <label className="block text-sm sm:text-base font-medium text-gray-700 mb-1">Color Variations (e.g., Red, Blue)</label>
   <div className="flex gap-2 mb-2">
     <input
       type="text"
@@ -440,7 +448,7 @@ const OrderDetails = ({ order }) => (
     </button>
   </div>
 
-  {/* Show list of variations */}
+  {/* Show list of color variations */}
 {formData.variations && formData.variations.length > 0 && (
     <div className="flex flex-wrap gap-2">
       {formData.variations.map((v, i) => (
@@ -452,6 +460,59 @@ const OrderDetails = ({ order }) => (
               setFormData((prev) => ({
                 ...prev,
                 variations: prev.variations.filter((_, index) => index !== i),
+              }))
+            }
+            className="text-red-500 hover:text-red-700"
+          >
+            &times;
+          </button>
+        </span>
+      ))}
+    </div>
+  )}
+</div>
+
+{/* Size Variations Input */}
+<div>
+  <label className="block text-sm sm:text-base font-medium text-gray-700 mb-1">Size Variations (e.g., S, M, L)</label>
+  <div className="flex gap-2 mb-2">
+    <input
+      type="text"
+      name="sizeInput"
+      value={formData.sizeInput}
+      onChange={handleChange}
+      placeholder="Add a size (e.g., S, M, L, XL)"
+      className="flex-1 border border-gray-300 p-2 rounded-md text-sm sm:text-base"
+    />
+    <button
+      type="button"
+      onClick={() => {
+        if (formData.sizeInput.trim()) {
+          setFormData((prev) => ({
+            ...prev,
+            sizes: [...prev.sizes, prev.sizeInput.trim()],
+            sizeInput: "",
+          }));
+        }
+      }}
+      className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-md text-sm sm:text-base"
+    >
+      Add
+    </button>
+  </div>
+
+  {/* Show list of size variations */}
+{formData.sizes && formData.sizes.length > 0 && (
+    <div className="flex flex-wrap gap-2">
+      {formData.sizes.map((size, i) => (
+        <span key={i} className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm flex items-center gap-2">
+          {size}
+          <button
+            type="button"
+            onClick={() =>
+              setFormData((prev) => ({
+                ...prev,
+                sizes: prev.sizes.filter((_, index) => index !== i),
               }))
             }
             className="text-red-500 hover:text-red-700"
@@ -509,7 +570,10 @@ const OrderDetails = ({ order }) => (
                       <p className="text-sm text-gray-700">Category: {product.category}</p>
                       <p className="text-sm text-gray-700">Top Product: {product.isTopProduct ? "Yes" : "No"}</p>
                       {product.variations && product.variations.length > 0 && (
-                        <p className="text-sm text-gray-700">Variations: {product.variations.join(', ')}</p>
+                        <p className="text-sm text-gray-700">Colors: {product.variations.join(', ')}</p>
+                      )}
+                      {product.sizes && product.sizes.length > 0 && (
+                        <p className="text-sm text-gray-700">Sizes: {product.sizes.join(', ')}</p>
                       )}
                       <p className="text-sm mt-1">Status: <span className={`font-medium ${product.available === false ? 'text-red-600' : 'text-green-600'}`}>
                         {product.available === false ? 'Out of Stock' : 'Available'}

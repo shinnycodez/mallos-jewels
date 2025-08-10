@@ -17,6 +17,7 @@ const ProductPage = ({ onOpenCart }) => {
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [selectedVariation, setSelectedVariation] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -31,6 +32,10 @@ const ProductPage = ({ onOpenCart }) => {
           // Set the first variation as selected by default if variations exist
           if (productData.variations && productData.variations.length > 0) {
             setSelectedVariation(productData.variations[0]);
+          }
+          // Set the first size as selected by default if sizes exist
+          if (productData.sizes && productData.sizes.length > 0) {
+            setSelectedSize(productData.sizes[0]);
           }
         } else {
           console.error('No such product!');
@@ -70,10 +75,10 @@ const ProductPage = ({ onOpenCart }) => {
     if (loading || !product.available) return;
     setLoading(true);
 
-    // Create a unique identifier that includes the variation if it exists
-    const itemId = selectedVariation 
-      ? `${product.id}_${selectedVariation}_${Date.now()}`
-      : `${product.id}_${Date.now()}`;
+    // Create a unique identifier that includes both variation and size if they exist
+    const variationPart = selectedVariation ? `_${selectedVariation}` : '';
+    const sizePart = selectedSize ? `_${selectedSize}` : '';
+    const itemId = `${product.id}${variationPart}${sizePart}_${Date.now()}`;
 
     const cartItem = {
       id: itemId,
@@ -82,7 +87,8 @@ const ProductPage = ({ onOpenCart }) => {
       price: product.price,
       image: product.coverImage,
       quantity,
-      variation: selectedVariation, // Include the selected variation
+      variation: selectedVariation, // Include the selected color variation
+      size: selectedSize, // Include the selected size
       createdAt: new Date().toISOString(),
     };
 
@@ -93,7 +99,8 @@ const ProductPage = ({ onOpenCart }) => {
       // Check if item with same configuration already exists
       const existingIndex = currentCart.findIndex(item =>
         item.productId === cartItem.productId && 
-        item.variation === cartItem.variation
+        item.variation === cartItem.variation &&
+        item.size === cartItem.size
       );
 
       if (existingIndex !== -1) {
@@ -132,7 +139,8 @@ const ProductPage = ({ onOpenCart }) => {
       price: product.price,
       image: product.coverImage,
       quantity,
-      variation: selectedVariation, // Include the selected variation
+      variation: selectedVariation, // Include the selected color variation
+      size: selectedSize, // Include the selected size
       createdAt: new Date().toISOString(),
     };
 
@@ -218,6 +226,29 @@ const ProductPage = ({ onOpenCart }) => {
                       } transition-colors duration-200`}
                     >
                       {variation}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Size Variations Selector */}
+            {product.sizes && product.sizes.length > 0 && (
+              <div className="px-4 py-3">
+                <h3 className="text-sm font-medium text-gray-900 mb-2">Size:</h3>
+                <div className="flex flex-wrap gap-2">
+                  {product.sizes.map((size) => (
+                    <button
+                      key={size}
+                      type="button"
+                      onClick={() => setSelectedSize(size)}
+                      className={`px-3 py-1 rounded-full text-sm border min-w-[40px] ${
+                        selectedSize === size
+                          ? 'bg-green-600 text-white border-green-600'
+                          : 'bg-white text-gray-800 border-gray-300 hover:border-green-400'
+                      } transition-colors duration-200`}
+                    >
+                      {size}
                     </button>
                   ))}
                 </div>
