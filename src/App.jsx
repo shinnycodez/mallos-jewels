@@ -16,6 +16,8 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const adminEmails = ["mueezimran1@gmail.com", "hibameen90@gmail.com"];
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(
       (user) => {
@@ -48,16 +50,26 @@ function App() {
     <Router>
       <Routes>
         {/* Public Routes */}
-        <Route path="/login" element={user ? <Navigate to="/" replace /> : <Login />} />
+        <Route
+          path="/login"
+          element={user ? <Navigate to="/" replace /> : <Login />}
+        />
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
         <Route path="/product/:id" element={<ProductPage />} />
         <Route path="/buynowcheckout" element={<BuyNowCheckout />} />
-        <Route path="/admin" element={<AdminPortal />} />
-       <Route path="/checkout" element={<CheckoutPage />} />
-<Route path="/thanks" element={<OrderThankYou />} />
-        {/* Protected Route */}
-        
+        <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/thanks" element={<OrderThankYou />} />
+
+        {/* Protected Admin Route */}
+        <Route
+          path="/admin"
+          element={
+            user && adminEmails.includes(user.email)
+              ? <AdminPortal />
+              : <Navigate to="/login" replace />
+          }
+        />
 
         {/* Fallback Route */}
         <Route path="*" element={<Navigate to="/" replace />} />
