@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
   doc,
-  getDoc
+  getDoc,
+  collection,
+  onSnapshot
 } from 'firebase/firestore';
 import { db } from '../firebase';
 
@@ -15,11 +17,43 @@ const ProductPage = ({ onOpenCart }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
+  const [discounts, setDiscounts] = useState([]);
+  const [activeDiscount, setActiveDiscount] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [selectedVariation, setSelectedVariation] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  // Fetch discounts from Firestore
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, "discounts"), (snapshot) => {
+      const discountsData = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      setDiscounts(discountsData);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  // Helper function to check if discount is currently active
+  const isDiscountActive = (discount) => {
+    if (!discount.isActive) return false;
+    const now = new Date();
+    const startDate = discount.startDate?.toDate ? discount.startDate.toDate() : new Date(discount.startDate);
+    const endDate = discount.endDate?.toDate ? discount.endDate.toDate() : new Date(discount.endDate);
+    return now >= startDate && now <= endDate;
+  };
+
+  // Check for active discount when product or discounts change
+  useEffect(() => {
+    if (product && discounts.length > 0) {
+      const currentActiveDiscount = discounts.find(discount => 
+        discount.productIds.includes(product.id) && isDiscountActive(discount)
+      );
+      setActiveDiscount(currentActiveDiscount || null);
+    } else {
+      setActiveDiscount(null);
+    }
+  }, [product, discounts]);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -48,6 +82,17 @@ const ProductPage = ({ onOpenCart }) => {
 
     fetchProduct();
   }, [id, navigate]);
+
+  // Calculate discounted price
+  const getDiscountedPrice = () => {
+    if (!activeDiscount) return product.price;
+    return Math.round(product.price * (1 - activeDiscount.discountPercentage / 100));
+  };
+
+  // Get the price to use for cart operations
+  const getCurrentPrice = () => {
+    return activeDiscount ? getDiscountedPrice() : product.price;
+  };
 
   // Save cart to storage (consistent with cart component and checkout)
   const saveCartToStorage = (cartData) => {
@@ -84,11 +129,13 @@ const ProductPage = ({ onOpenCart }) => {
       id: itemId,
       productId: product.id,
       title: product.title,
-      price: product.price,
+      price: getCurrentPrice(), // Use discounted price if available
+      originalPrice: product.price, // Store original price for reference
       image: product.coverImage,
       quantity,
       variation: selectedVariation, // Include the selected color variation
       size: selectedSize, // Include the selected size
+      discountApplied: activeDiscount ? activeDiscount.discountPercentage : null,
       createdAt: new Date().toISOString(),
     };
 
@@ -136,11 +183,13 @@ const ProductPage = ({ onOpenCart }) => {
       id: product.id,
       productId: product.id,
       title: product.title,
-      price: product.price,
+      price: getCurrentPrice(), // Use discounted price if available
+      originalPrice: product.price, // Store original price for reference
       image: product.coverImage,
       quantity,
       variation: selectedVariation, // Include the selected color variation
       size: selectedSize, // Include the selected size
+      discountApplied: activeDiscount ? activeDiscount.discountPercentage : null,
       createdAt: new Date().toISOString(),
     };
 
@@ -167,6 +216,9 @@ const ProductPage = ({ onOpenCart }) => {
     ? [product.coverImage, ...product.images]
     : [product.coverImage];
 
+  const discountedPrice = getDiscountedPrice();
+  const savings = product.price - discountedPrice;
+
   return (
     <div className="relative flex min-h-screen flex-col bg-[#FFF5EE] overflow-x-hidden">
       {showSuccess && (
@@ -190,23 +242,73 @@ const ProductPage = ({ onOpenCart }) => {
       <div className="layout-container flex h-full grow flex-col bg-[#FFF5EE]">
         <div className="gap-1 px-6 flex flex-1 justify-center py-5 flex-col md:flex-row">
           <div className="flex flex-col max-w-[920px] flex-1">
-            <div className="flex w-full grow p-4">
+            <div className="flex w-full grow p-4 relative">
+              {/* Discount Badge */}
+              {activeDiscount && (
+                <div className="absolute top-6 left-6 z-10">
+                  <div className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
+                    -{activeDiscount.discountPercentage}% OFF
+                  </div>
+                  {activeDiscount.description && (
+                    <div className="bg-black text-white px-2 py-1 rounded text-xs mt-1 text-center">
+                      {activeDiscount.description}
+                    </div>
+                  )}
+                </div>
+              )}
               <ProductImageGrid images={allImages} />
             </div>
           </div>
 
           <div className="flex flex-col w-full md:w-[360px]">
-            <ProductInfo
-              title={product.title}
-              price={`PKR ${product.price}`}
-              description={product.description}
-              packageInfo={product.packageInfo || '3 PIECE'}
-            />
+            {/* Product Info with Discount Pricing */}
+            <div className="px-4 py-3">
+              <h1 className="text-2xl font-bold text-gray-900 mb-2">{product.title}</h1>
+              
+              {/* Price Display with Discount */}
+              <div className="mb-4">
+                {activeDiscount ? (
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-3">
+                      <span className="text-2xl font-bold text-green-600">
+                        PKR {discountedPrice.toLocaleString()}
+                      </span>
+                      <span className="text-lg text-gray-500 line-through">
+                        PKR {product.price.toLocaleString()}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="bg-red-100 text-red-700 px-2 py-1 rounded text-sm font-medium">
+                        {activeDiscount.discountPercentage}% OFF
+                      </span>
+                      <span className="text-green-600 text-sm font-medium">
+                        You save PKR {savings.toLocaleString()}
+                      </span>
+                    </div>
+                    {activeDiscount.description && (
+                      <p className="text-sm text-blue-600 font-medium">
+                        🎯 {activeDiscount.description}
+                      </p>
+                    )}
+                  </div>
+                ) : (
+                  <span className="text-2xl font-bold text-gray-900">
+                    PKR {product.price.toLocaleString()}
+                  </span>
+                )}
+              </div>
+
+              <p className="text-gray-600 mb-4">{product.description}</p>
+              
+              {product.packageInfo && (
+                <p className="text-sm text-gray-500 mb-3">Package: {product.packageInfo}</p>
+              )}
+            </div>
             
             {product.available ? (
-              <p className="text-green-600 font-medium px-4">In Stock</p>
+              <p className="text-green-600 font-medium px-4">✅ In Stock</p>
             ) : (
-              <p className="text-red-600 font-medium px-4">Out of Stock</p>
+              <p className="text-red-600 font-medium px-4">❌ Out of Stock</p>
             )}
 
             {/* Color Variations Selector */}
@@ -257,6 +359,18 @@ const ProductPage = ({ onOpenCart }) => {
 
             <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
 
+            {/* Discount Timer (if discount is active) */}
+            {activeDiscount && (
+              <div className="mx-4 mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-red-600 font-bold text-sm">🔥 LIMITED TIME OFFER</span>
+                </div>
+                <p className="text-xs text-red-700">
+                  Offer ends: {(activeDiscount.endDate?.toDate ? activeDiscount.endDate.toDate() : new Date(activeDiscount.endDate)).toLocaleDateString()} at {(activeDiscount.endDate?.toDate ? activeDiscount.endDate.toDate() : new Date(activeDiscount.endDate)).toLocaleTimeString()}
+                </p>
+              </div>
+            )}
+
             <div className="flex flex-col gap-3 p-4">
               <button
                 onClick={handleAddToCart}
@@ -275,6 +389,8 @@ const ProductPage = ({ onOpenCart }) => {
                     </svg>
                     Adding...
                   </span>
+                ) : activeDiscount ? (
+                  `Add to Cart - PKR ${getCurrentPrice().toLocaleString()}`
                 ) : (
                   'Add to Cart'
                 )}
@@ -289,8 +405,17 @@ const ProductPage = ({ onOpenCart }) => {
                     : 'bg-gray-400 text-white cursor-not-allowed'
                 }`}
               >
-                Buy Now
+                {activeDiscount ? `Buy Now - PKR ${getCurrentPrice().toLocaleString()}` : 'Buy Now'}
               </button>
+
+              {/* Savings highlight */}
+              {activeDiscount && (
+                <div className="text-center p-2 bg-green-100 rounded-lg">
+                  <p className="text-green-700 font-medium text-sm">
+                    💰 You're saving PKR {(savings * quantity).toLocaleString()} on this purchase!
+                  </p>
+                </div>
+              )}
             </div>
 
             {/* Additional Product Details */}

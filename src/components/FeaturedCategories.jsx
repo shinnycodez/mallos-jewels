@@ -63,6 +63,12 @@ const categories = [
     imageUrl:"https://scontent.flyp4-1.fna.fbcdn.net/v/t1.15752-9/526442102_1085864649733328_3983126921268614804_n.jpg?stp=dst-jpg_s640x640_tt6&_nc_cat=100&ccb=1-7&_nc_sid=0024fc&_nc_ohc=dGo8hkHZdf0Q7kNvwGgX4hg&_nc_oc=Adl6TuVgDvBN9enBYUKq7bwHYWA2FBWpfZDjJmZxPf2zH11b5xI12h2F1_vsRxa8L2k&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.flyp4-1.fna&oh=03_Q7cD3AFdeKqMLkqSHOmoIJGRr4pWlsTFuzceXDPSeaHkCkas8w&oe=68B7E6F9",
      link: "3 piece sets"
   },
+        {
+      id: 7,
+    title: "Charms⭒˚.⋆",
+    imageUrl:"https://scontent.flhe3-1.fna.fbcdn.net/v/t1.15752-9/530104520_806992088460323_1144787244659278381_n.jpg?stp=dst-jpg_p480x480_tt6&_nc_cat=100&ccb=1-7&_nc_sid=0024fc&_nc_ohc=Lh-CfevHp6wQ7kNvwFRKj0o&_nc_oc=AdmOFoApD8XnzRTU2gdYNotsLruRRyscE-JKKawyRsEBvkXfsvO0VPut5ICrw4J41fw&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.flhe3-1.fna&oh=03_Q7cD3AFXApz0skYsyu_kDuBmkOl5b-kYW4fvPfF_NItPrZL2LA&oe=68C44EB2",
+     link: "charms"
+  },
   //       {
   //   id: 6,
   //   title: "Bag charms",
