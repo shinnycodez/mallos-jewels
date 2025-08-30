@@ -5,13 +5,13 @@ const categories = [
     {
     id: 1,
     title: "Bracelets ˚⊹♡",
-    imageUrl: "https://scontent.fskt1-1.fna.fbcdn.net/v/t1.15752-9/525024338_642833308844378_6043913897455377992_n.jpg?stp=dst-jpg_p480x480_tt6&_nc_cat=100&ccb=1-7&_nc_sid=0024fc&_nc_ohc=3Ff2DIBBG30Q7kNvwH3CvD2&_nc_oc=AdmLIk72lN_XE4vY0gzGJQMBtOyUF-HTsVBH4AoBojdBWP8aiImuovZgGBZmX-7ATYw&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fskt1-1.fna&oh=03_Q7cD2wGNK0WIy8HgGDmq5-EAiLxTrUOzVGJ9Z81yqKWH9Pb63g&oe=68B481BC",
+    imageUrl: "https://i.postimg.cc/wx0XrXnS/image.png",
     link: "Bracelets"
   },
   {
     id: 2,
     title: "Pendants ⋆｡𖦹°",
-    imageUrl: "https://scontent.fskt1-1.fna.fbcdn.net/v/t1.15752-9/526286986_1947875569334194_6432178775595699056_n.jpg?stp=dst-jpg_s565x565_tt6&_nc_cat=101&ccb=1-7&_nc_sid=0024fc&_nc_ohc=hzi2kP2DyY0Q7kNvwEO2oRI&_nc_oc=Adk_8ftUe8ZCeB0ylNgoL17lA7FjARZFkx1cSCHZfNk_RodGMjmM2giL8Fq5Fkwpgc8&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fskt1-1.fna&oh=03_Q7cD2wEJBvYe0SkCsxymylXDD3uhRjEjjDV0eKnqXxlAc8DfZA&oe=68B471CB",
+    imageUrl: "https://i.postimg.cc/CLRq6WGq/image.png",
       link: "Pendants",
   },
 
@@ -24,49 +24,49 @@ const categories = [
       {
     id: 3,
     title: "Earrings ˚⋆𐙚｡",
-    imageUrl: "https://scontent.flhe3-1.fna.fbcdn.net/v/t1.15752-9/525536730_2494229634266747_3171338560065245666_n.jpg?stp=dst-jpg_s480x480_tt6&_nc_cat=108&ccb=1-7&_nc_sid=0024fc&_nc_ohc=VWBb3Bz-M-QQ7kNvwHEPpCJ&_nc_oc=AdmVq2lkacmwEti8Llkp2DeEHFz6Yw-ZXUf7d2_4Ta_EsCYQ_IhHob9gUnWEog5_r9k&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.flhe3-1.fna&oh=03_Q7cD2wEfpKa1PYz4ecpDmYQFfmK6yhiNySaOcYM6h3oiUBMF3w&oe=68B4880D",
+    imageUrl: "https://i.postimg.cc/BQPjC235/image.png",
       link: "Earrings"
   },
       {
     id: 4,
     title: "Resin jhumkas ｡°✩",
-    imageUrl:"https://scontent.flhe7-1.fna.fbcdn.net/v/t1.15752-9/526382878_3693244157472926_1800558568691793552_n.jpg?stp=dst-jpg_p480x480_tt6&_nc_cat=101&ccb=1-7&_nc_sid=0024fc&_nc_ohc=bCizp3RB4XUQ7kNvwF1Atc5&_nc_oc=Adk6opSm568u9QT-BF9gkRcmlxEHJPm3j2WhmN-89zotPwWieK-JOugKQRrE2b-kJmc&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.flhe7-1.fna&oh=03_Q7cD2wEBOuz81U6ZLUoqc84cXcNYU6Oy8_UM-d6Gx_UYVPaYQQ&oe=68B4A059",
+    imageUrl:"https://i.postimg.cc/kgdgFZf9/image.png",
      link: "Resin jhumkas"
   },
         {
     id: 5,
     title: "Vintage Collection⋆⭒˚.⋆",
-    imageUrl:"https://scontent.flhe3-2.fna.fbcdn.net/v/t1.15752-9/525631364_1459822905434217_8427164512772885201_n.png?stp=dst-png_p480x480&_nc_cat=102&ccb=1-7&_nc_sid=0024fc&_nc_ohc=bQ_3uKnOs1wQ7kNvwFiikrb&_nc_oc=AdkBaC0V_nJBVM8V_F4GUTIqPYO2GnmN7uK1s52yo7lkXml1aLDSuOOHW5DhserJxpk&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.flhe3-2.fna&oh=03_Q7cD2wHRCZg7xTeIe4PwJyuVePPQXa6WcSn_koEh2ji0l1rtEQ&oe=68B47A47",
+    imageUrl:"https://i.postimg.cc/ZYd98r48/image.png",
      link: "Vintage Collection"
   },
   {
       id: 6,
     title: "Gifts ⋆⭒˚.⋆",
-    imageUrl:"https://scontent.flhe7-2.fna.fbcdn.net/v/t1.15752-9/527294313_1078671567792581_6885154972106435777_n.png?_nc_cat=105&ccb=1-7&_nc_sid=0024fc&_nc_ohc=akn5LZ8j-HcQ7kNvwHXqWYf&_nc_oc=AdnxVAQQWIij2xikGiTT37QQ1c__0VltmW5s5DoP8zyhPHu5FG-EojG5dObKIvaIh9M&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.flhe7-2.fna&oh=03_Q7cD2wEyEzUFolOX6yJlHR8dhmUXrgxlFyJJpCEbp9oAoGoMJg&oe=68B49D89",
+    imageUrl:"https://i.postimg.cc/cH8JcSyx/image.png",
      link: "Gifts"
   },
     {
       id: 7,
     title: "Flower preservation⋆⭒˚.⋆",
-    imageUrl:"https://scontent.flhe3-2.fna.fbcdn.net/v/t1.15752-9/523933575_775230068389768_1997263228595901004_n.png?stp=dst-png_s640x640&_nc_cat=110&ccb=1-7&_nc_sid=0024fc&_nc_ohc=33NGxhFGj4UQ7kNvwF92DXg&_nc_oc=Adlakkleh9isusWUFzCLiiaCVZ0KOxZcLujmUsoC59l6X8qzMUXmD5EnqXSIxFTHjts&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.flhe3-2.fna&oh=03_Q7cD2wEGpj7DsqUPZkwTRN7jwAc1alZ1vXnjjCw4QnoBlBxkqg&oe=68B48E04",
+    imageUrl:"https://i.postimg.cc/HLrWpgLw/image.png",
      link: "Flower preservation"
   },
       {
       id: 7,
     title: "Rings⋆⭒˚.⋆",
-    imageUrl:"https://scontent.flhe7-1.fna.fbcdn.net/v/t1.15752-9/524769285_763827739370305_1636925045429649579_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=0024fc&_nc_ohc=l6B5QlwQuiYQ7kNvwHMs3sa&_nc_oc=AdmxW89NEjxsdB9QIpsBBvkoDd-mbDSs4mQ4TodMetfrbTEWEsju3xA8EApAp1QglFM&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.flhe7-1.fna&oh=03_Q7cD2wFRh47vgDNvagitPHYPNmdiFuCGCSVoPwuh_fWkx_5iZQ&oe=68B473CE",
+    imageUrl:"https://i.postimg.cc/KvQmBzk7/image.png",
      link: "Rings"
   },
       {
       id: 7,
     title: "3 piece sets⭒˚.⋆",
-    imageUrl:"https://scontent.flyp4-1.fna.fbcdn.net/v/t1.15752-9/526442102_1085864649733328_3983126921268614804_n.jpg?stp=dst-jpg_s640x640_tt6&_nc_cat=100&ccb=1-7&_nc_sid=0024fc&_nc_ohc=dGo8hkHZdf0Q7kNvwGgX4hg&_nc_oc=Adl6TuVgDvBN9enBYUKq7bwHYWA2FBWpfZDjJmZxPf2zH11b5xI12h2F1_vsRxa8L2k&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.flyp4-1.fna&oh=03_Q7cD3AFdeKqMLkqSHOmoIJGRr4pWlsTFuzceXDPSeaHkCkas8w&oe=68B7E6F9",
+    imageUrl:"https://i.postimg.cc/9Q4s0FGQ/image.png",
      link: "3 piece sets"
   },
         {
       id: 7,
     title: "Charms⭒˚.⋆",
-    imageUrl:"https://scontent.flhe3-1.fna.fbcdn.net/v/t1.15752-9/530104520_806992088460323_1144787244659278381_n.jpg?stp=dst-jpg_p480x480_tt6&_nc_cat=100&ccb=1-7&_nc_sid=0024fc&_nc_ohc=Lh-CfevHp6wQ7kNvwFRKj0o&_nc_oc=AdmOFoApD8XnzRTU2gdYNotsLruRRyscE-JKKawyRsEBvkXfsvO0VPut5ICrw4J41fw&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.flhe3-1.fna&oh=03_Q7cD3AFXApz0skYsyu_kDuBmkOl5b-kYW4fvPfF_NItPrZL2LA&oe=68C44EB2",
+    imageUrl:"https://i.postimg.cc/pXS1wbgb/image.png",
      link: "charms"
   },
   //       {
