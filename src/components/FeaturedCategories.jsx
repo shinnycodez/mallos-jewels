@@ -5,14 +5,14 @@ const categories = [
     {
     id: 1,
     title: "Bracelets ˚⊹♡",
-    imageUrl: "https://i.postimg.cc/wx0XrXnS/image.png",
+    imageUrl: "https://pbs.twimg.com/media/GznH7jPX0AAcjhY?format=jpg&name=small",
     link: "Bracelets"
   },
   {
     id: 2,
-    title: "Pendants ⋆｡𖦹°",
-    imageUrl: "https://i.postimg.cc/CLRq6WGq/image.png",
-      link: "Pendants",
+    title: "Keychains ⋆｡𖦹°",
+    imageUrl: "https://pbs.twimg.com/media/GznH9wAXcAAHGHW?format=jpg&name=small",
+      link: "Keychains",
   },
 
 
@@ -23,52 +23,52 @@ const categories = [
   // },
       {
     id: 3,
-    title: "Earrings ˚⋆𐙚｡",
-    imageUrl: "https://i.postimg.cc/BQPjC235/image.png",
-      link: "Earrings"
+    title: "Necklaces ˚⋆𐙚｡",
+    imageUrl: "https://pbs.twimg.com/media/GznH_XSWwAA1CYD?format=jpg&name=small",
+      link: "Necklaces"
   },
       {
     id: 4,
-    title: "Resin jhumkas ｡°✩",
-    imageUrl:"https://i.postimg.cc/kgdgFZf9/image.png",
-     link: "Resin jhumkas"
+    title: "Phone charms ｡°✩",
+    imageUrl:"https://pbs.twimg.com/media/GznQLhOXUAAhR3Q?format=jpg&name=medium",
+     link: "Phone charms"
   },
         {
     id: 5,
-    title: "Vintage Collection⋆⭒˚.⋆",
-    imageUrl:"https://i.postimg.cc/ZYd98r48/image.png",
-     link: "Vintage Collection"
+    title: "Crochet items⋆⭒˚.⋆",
+    imageUrl:"https://pbs.twimg.com/media/GznIjt0WMAArHpR?format=jpg&name=small",
+     link: "Crochet items"
   },
   {
       id: 6,
-    title: "Gifts ⋆⭒˚.⋆",
-    imageUrl:"https://i.postimg.cc/cH8JcSyx/image.png",
-     link: "Gifts"
+    title: "Others ⋆⭒˚.⋆",
+    imageUrl:"https://pbs.twimg.com/media/GznIh03WIAAc_7-?format=jpg&name=small",
+     link: "Others"
   },
-    {
-      id: 7,
-    title: "Flower preservation⋆⭒˚.⋆",
-    imageUrl:"https://i.postimg.cc/HLrWpgLw/image.png",
-     link: "Flower preservation"
-  },
-      {
-      id: 7,
-    title: "Rings⋆⭒˚.⋆",
-    imageUrl:"https://i.postimg.cc/KvQmBzk7/image.png",
-     link: "Rings"
-  },
-      {
-      id: 7,
-    title: "3 piece sets⭒˚.⋆",
-    imageUrl:"https://i.postimg.cc/9Q4s0FGQ/image.png",
-     link: "3 piece sets"
-  },
-        {
-      id: 7,
-    title: "Charms⭒˚.⋆",
-    imageUrl:"https://i.postimg.cc/pXS1wbgb/image.png",
-     link: "charms"
-  },
+  //   {
+  //     id: 7,
+  //   title: "Flower preservation⋆⭒˚.⋆",
+  //   imageUrl:"https://i.postimg.cc/HLrWpgLw/image.png",
+  //    link: "Flower preservation"
+  // },
+  //     {
+  //     id: 7,
+  //   title: "Rings⋆⭒˚.⋆",
+  //   imageUrl:"https://i.postimg.cc/KvQmBzk7/image.png",
+  //    link: "Rings"
+  // },
+  //     {
+  //     id: 7,
+  //   title: "3 piece sets⭒˚.⋆",
+  //   imageUrl:"https://i.postimg.cc/9Q4s0FGQ/image.png",
+  //    link: "3 piece sets"
+  // },
+  //       {
+  //     id: 7,
+  //   title: "Charms⭒˚.⋆",
+  //   imageUrl:"https://i.postimg.cc/pXS1wbgb/image.png",
+  //    link: "charms"
+  // },
   //       {
   //   id: 6,
   //   title: "Bag charms",
@@ -80,7 +80,7 @@ const categories = [
 function FeaturedCategories() {
   return (
 <div>
-  <h2 className="text-[#141414] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">
+  <h2 className="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">
     Featured Categories
   </h2>
 
