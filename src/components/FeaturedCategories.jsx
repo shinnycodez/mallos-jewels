@@ -45,12 +45,12 @@ const categories = [
     imageUrl:"https://pbs.twimg.com/media/GznIh03WIAAc_7-?format=jpg&name=small",
      link: "Others"
   },
-  //   {
-  //     id: 7,
-  //   title: "Flower preservation⋆⭒˚.⋆",
-  //   imageUrl:"https://i.postimg.cc/HLrWpgLw/image.png",
-  //    link: "Flower preservation"
-  // },
+    {
+      id: 7,
+    title: "Rings⭒˚.⋆",
+    imageUrl:"https://pbs.twimg.com/media/GznmvKpWoAAWFUO?format=jpg&name=900x900",
+     link: "Rings"
+  },
   //     {
   //     id: 7,
   //   title: "Rings⋆⭒˚.⋆",
