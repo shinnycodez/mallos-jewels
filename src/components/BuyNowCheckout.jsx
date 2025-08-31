@@ -47,9 +47,10 @@ const BuyNowCheckout = () => {
   }, []);
 
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0);
-const shippingCost = form.city.trim().toLowerCase() === 'karachi' ? 250 : 350;
-
-  const total = subtotal + shippingCost;
+  const shippingCost = form.city.trim().toLowerCase() === 'karachi' ? 250 : 350;
+  // Optional: Add COD fee if you want
+  const cashOnDeliveryFee = form.paymentMethod === 'Cash on Delivery' ? 0 : 0;
+  const total = subtotal + shippingCost + cashOnDeliveryFee;
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -122,6 +123,7 @@ const shippingCost = form.city.trim().toLowerCase() === 'karachi' ? 250 : 350;
       newErrors.phone = 'Please enter a valid phone number (at least 7 digits)';
     }
 
+    // Only require bank transfer proof for JazzCash/EasyPaisa
     if (form.paymentMethod === 'JazzCash/EasyPaisa' && !bankTransferProofBase64) {
       newErrors.bankTransferProof = 'Please upload a screenshot of your JazzCash transfer or bank transfer receipt.';
     }
@@ -180,10 +182,12 @@ const shippingCost = form.city.trim().toLowerCase() === 'karachi' ? 250 : 350;
       notes: form.notes,
       subtotal,
       shippingCost,
+      cashOnDeliveryFee,
       total,
       createdAt: new Date(),
       status: 'processing',
       buyNow: true,
+      // Only include bank transfer proof for JazzCash/EasyPaisa
       bankTransferProofBase64: form.paymentMethod === 'JazzCash/EasyPaisa' ? bankTransferProofBase64 : null,
     };
 
@@ -385,7 +389,7 @@ const shippingCost = form.city.trim().toLowerCase() === 'karachi' ? 250 : 350;
                   <div className="ml-3">
                     <p className="font-medium text-gray-900 text-sm sm:text-base">Standard Delivery</p>
                     <p className="text-xs sm:text-sm text-gray-500">
-                  PKR 250 for karachi and 350 for other cities - Delivery in 8-10 business days
+                      PKR 250 for Karachi and 350 for other cities - Delivery in 8-10 business days
                     </p>
                   </div>
                 </label>
@@ -394,7 +398,7 @@ const shippingCost = form.city.trim().toLowerCase() === 'karachi' ? 250 : 350;
               <h2 className="text-lg sm:text-xl font-semibold mt-8 mb-6 pb-2 border-b">Payment Method</h2>
               
               <div className="space-y-4">
-                {['JazzCash/EasyPaisa'].map(method => (
+                {['JazzCash/EasyPaisa', 'Cash on Delivery'].map(method => (
                   <label key={method} className="flex items-center p-4 border rounded-md hover:border-black cursor-pointer">
                     <input
                       type="radio"
@@ -415,7 +419,7 @@ const shippingCost = form.city.trim().toLowerCase() === 'karachi' ? 250 : 350;
                   <p className="text-gray-700 mb-4 text-sm sm:text-base">
                     Please transfer the total amount of PKR {total.toLocaleString()} to our account:
                   </p>
-  <ul className="list-disc list-inside text-gray-800 text-sm sm:text-base mb-4">
+                  <ul className="list-disc list-inside text-gray-800 text-sm sm:text-base mb-4">
                     <li><strong>Account Name:</strong> Muzaffar uddin Ahmed </li>
                     <li><strong> Number:</strong> 0333 0258436</li>
                   </ul>
@@ -447,7 +451,24 @@ const shippingCost = form.city.trim().toLowerCase() === 'karachi' ? 250 : 350;
                         Converting image...
                       </p>
                     )}
+                  </div>
                 </div>
+              )}
+
+              {form.paymentMethod === 'Cash on Delivery' && (
+                <div className="mt-6 p-4 border border-green-300 bg-green-50 rounded-md">
+                  <h3 className="text-base sm:text-lg font-semibold mb-3">Cash on Delivery Details</h3>
+                  <p className="text-gray-700 text-sm sm:text-base mb-4">
+                    💵 Pay with cash when your order is delivered.
+                  </p>
+                  <ul className="list-disc list-inside text-gray-800 text-sm sm:text-base mb-4">
+                    <li><strong>Total Amount Due:</strong> PKR {total.toLocaleString()}</li>
+                    <li><strong>Payment:</strong> Cash to delivery personnel</li>
+                    <li><strong>Delivery Time:</strong> 8-10 business days</li>
+                  </ul>
+                  <p className="text-sm text-orange-600 font-medium">
+                    ⚠️ Please have exact change ready for the delivery personnel.
+                  </p>
                 </div>
               )}
 
@@ -541,6 +562,13 @@ const shippingCost = form.city.trim().toLowerCase() === 'karachi' ? 250 : 350;
                   <span className="text-sm text-gray-600">Shipping</span>
                   <span className="text-sm">PKR {shippingCost.toLocaleString()}</span>
                 </div>
+                
+                {cashOnDeliveryFee > 0 && (
+                  <div className="flex justify-between">
+                    <span className="text-sm text-gray-600">Cash on Delivery Fee</span>
+                    <span className="text-sm">PKR {cashOnDeliveryFee.toLocaleString()}</span>
+                  </div>
+                )}
                 
                 {form.promoCode && (
                   <div className="flex justify-between">

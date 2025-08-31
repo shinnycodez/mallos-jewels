@@ -7,6 +7,7 @@ import {
   doc,
   onSnapshot,
   serverTimestamp,
+  getDoc,
 } from "firebase/firestore";
 import { db } from "../firebase";
 import Header from "./Header";
@@ -27,10 +28,13 @@ const [formData, setFormData] = useState({
   image2: "",
   isTopProduct: false,
   available: true,
-  variationInput: "",      // for temporary color input field
-  variations: [],          // array to hold color variations
-  sizeInput: "",          // for temporary size input field
-  sizes: [],              // array to hold size variations
+  variationInput: "",
+  variations: [],
+  sizeInput: "",
+  sizes: [],
+  // Add stock management fields
+  stock: {}, // Object to track stock by variation/size
+  defaultStock: 0, // Default stock for products without variations
 });
 
   // New discount-related state
@@ -96,7 +100,16 @@ const [formData, setFormData] = useState({
     });
     return () => unsubscribe();
   }, []);
-
+const deleteOrder = async (orderId) => {
+  if (confirm("Are you sure you want to delete this order? This action cannot be undone.")) {
+    try {
+      await deleteDoc(doc(db, "orders", orderId));
+      console.log(`Order ${orderId} deleted successfully.`);
+    } catch (err) {
+      console.error("Failed to delete order:", err);
+    }
+  }
+};
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, "orders"), (snapshot) => {
       const ordersData = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
@@ -289,29 +302,53 @@ const [formData, setFormData] = useState({
     return { text: "Active", color: "text-green-600" };
   };
 
-  const markAsDelivered = async (orderId) => {
-    try {
-      const orderRef = doc(db, "orders", orderId);
-      await updateDoc(orderRef, {
-        status: "delivered",
-        bankTransferProofBase64: null,
-      });
-      console.log(`Order ${orderId} marked as delivered and bank transfer proof removed.`);
-    } catch (err) {
-      console.error("Failed to mark as delivered:", err);
-    }
-  };
-
-  const deleteOrder = async (orderId) => {
-    if (confirm("Are you sure you want to delete this order? This action cannot be undone.")) {
-      try {
-        await deleteDoc(doc(db, "orders", orderId));
-        console.log(`Order ${orderId} deleted successfully.`);
-      } catch (err) {
-        console.error("Failed to delete order:", err);
+const markAsDelivered = async (orderId) => {
+  try {
+    const orderRef = doc(db, "orders", orderId);
+    const orderDoc = await getDoc(orderRef);
+    const order = orderDoc.data();
+    
+    // Deduct stock for each item in the order
+    for (const item of order.items || []) {
+      const productRef = doc(db, "products", item.productId);
+      const productDoc = await getDoc(productRef);
+      const product = productDoc.data();
+      
+      if (product) {
+        let updateData = {};
+        const quantity = item.quantity || 1;
+        
+        // Deduct stock based on variation/size
+        if (item.variation && product.stock && product.stock[item.variation] !== undefined) {
+          const newStock = Math.max(0, (product.stock[item.variation] || 0) - quantity);
+          updateData[`stock.${item.variation}`] = newStock;
+        } 
+        else if (item.size && product.stock && product.stock[item.size] !== undefined) {
+          const newStock = Math.max(0, (product.stock[item.size] || 0) - quantity);
+          updateData[`stock.${item.size}`] = newStock;
+        }
+        else {
+          // Deduct from default stock
+          const newDefaultStock = Math.max(0, (product.defaultStock || 0) - quantity);
+          updateData.defaultStock = newDefaultStock;
+        }
+        
+        // Update product stock
+        await updateDoc(productRef, updateData);
       }
     }
-  };
+    
+    // Mark order as delivered
+    await updateDoc(orderRef, {
+      status: "delivered",
+      bankTransferProofBase64: null,
+    });
+    
+    console.log(`Order ${orderId} marked as delivered and stock updated.`);
+  } catch (err) {
+    console.error("Failed to mark as delivered:", err);
+  }
+};
 
   // New function to delete contact
   const deleteContact = async (contactId) => {
@@ -331,38 +368,35 @@ const handleSubmit = async (e) => {
   setSuccessMsg("");
 
   try {
+    const productData = {
+      title: formData.title,
+      price: parseFloat(formData.price),
+      category: formData.category,
+      description: formData.description,
+      coverImage: formData.coverImage,
+      images: [formData.image1, formData.image2],
+      isTopProduct: formData.isTopProduct,
+      available: formData.available,
+      variations: formData.variations,
+      sizes: formData.sizes,
+      // Add stock data
+      stock: formData.stock,
+      defaultStock: parseInt(formData.defaultStock) || 0,
+    };
+
     if (editId) {
-      await updateDoc(doc(db, "products", editId), {
-        title: formData.title,
-        price: parseFloat(formData.price),
-        category: formData.category,
-        description: formData.description,
-        coverImage: formData.coverImage,
-        images: [formData.image1, formData.image2],
-        isTopProduct: formData.isTopProduct,
-        available: formData.available,
-        variations: formData.variations, // Color variations
-        sizes: formData.sizes, // Size variations
-      });
+      await updateDoc(doc(db, "products", editId), productData);
       setSuccessMsg("✅ Product updated successfully!");
       setEditId(null);
     } else {
       await addDoc(collection(db, "products"), {
-        title: formData.title,
-        price: parseFloat(formData.price),
-        category: formData.category,
-        description: formData.description,
-        coverImage: formData.coverImage,
-        images: [formData.image1, formData.image2],
-        isTopProduct: formData.isTopProduct,
-        available: formData.available,
-        variations: formData.variations, // Color variations
-        sizes: formData.sizes, // Size variations
+        ...productData,
         createdAt: serverTimestamp(),
       });
       setSuccessMsg("✅ Product added successfully!");
     }
 
+    // Reset form (keep the stock reset)
     setFormData({
       title: "",
       price: "",
@@ -373,10 +407,12 @@ const handleSubmit = async (e) => {
       image2: "",
       isTopProduct: false,
       available: true,
-      variations: [], // Reset color variations
-      variationInput: "", // Reset color input field
-      sizes: [], // Reset size variations
-      sizeInput: "" // Reset size input field
+      variations: [],
+      variationInput: "",
+      sizes: [],
+      sizeInput: "",
+      stock: {},
+      defaultStock: 0,
     });
   } catch (err) {
     console.error("Error:", err);
@@ -395,7 +431,6 @@ const handleSubmit = async (e) => {
       }
     }
   };
-
 const handleEdit = (product) => {
   setFormData({
     title: product.title,
@@ -410,7 +445,10 @@ const handleEdit = (product) => {
     variations: product.variations || [], // Color variations
     variationInput: "",
     sizes: product.sizes || [], // Size variations
-    sizeInput: ""
+    sizeInput: "",
+    // Add stock fields
+    stock: product.stock || {}, // Stock by variation/size
+    defaultStock: product.defaultStock || 0, // Default stock
   });
   setEditId(product.id);
   setShowForm(true);
@@ -621,7 +659,73 @@ const OrderDetails = ({ order }) => (
                   </div>
                 )}
               </div>
+{/* Default Stock Input */}
+<div>
+  <label className="block text-sm sm:text-base font-medium text-gray-700 mb-1">
+    Default Stock Quantity
+  </label>
+  <input
+    type="number"
+    name="defaultStock"
+    value={formData.defaultStock}
+    onChange={handleChange}
+    placeholder="Enter stock quantity"
+    min="0"
+    className="w-full border border-gray-300 p-2 rounded-md text-sm sm:text-base"
+  />
+</div>
 
+{/* Stock by Variation (if variations exist) */}
+{formData.variations.length > 0 && (
+  <div>
+    <label className="block text-sm sm:text-base font-medium text-gray-700 mb-2">
+      Stock by Color Variation
+    </label>
+    {formData.variations.map((variation, index) => (
+      <div key={index} className="flex items-center gap-2 mb-2">
+        <span className="w-20 text-sm">{variation}:</span>
+        <input
+          type="number"
+          value={formData.stock[variation] || 0}
+          onChange={(e) => {
+            const newStock = { ...formData.stock };
+            newStock[variation] = parseInt(e.target.value) || 0;
+            setFormData(prev => ({ ...prev, stock: newStock }));
+          }}
+          placeholder="Qty"
+          min="0"
+          className="border border-gray-300 p-2 rounded-md text-sm w-20"
+        />
+      </div>
+    ))}
+  </div>
+)}
+
+{/* Stock by Size (if sizes exist) */}
+{formData.sizes.length > 0 && (
+  <div>
+    <label className="block text-sm sm:text-base font-medium text-gray-700 mb-2">
+      Stock by Size
+    </label>
+    {formData.sizes.map((size, index) => (
+      <div key={index} className="flex items-center gap-2 mb-2">
+        <span className="w-20 text-sm">{size}:</span>
+        <input
+          type="number"
+          value={formData.stock[size] || 0}
+          onChange={(e) => {
+            const newStock = { ...formData.stock };
+            newStock[size] = parseInt(e.target.value) || 0;
+            setFormData(prev => ({ ...prev, stock: newStock }));
+          }}
+          placeholder="Qty"
+          min="0"
+          className="border border-gray-300 p-2 rounded-md text-sm w-20"
+        />
+      </div>
+    ))}
+  </div>
+)}
               {/* Size Variations Input */}
               <div>
                 <label className="block text-sm sm:text-base font-medium text-gray-700 mb-1">Size Variations (e.g., S, M, L)</label>
@@ -952,6 +1056,17 @@ const OrderDetails = ({ order }) => (
                         <p className="text-sm mt-1">Status: <span className={`font-medium ${product.available === false ? 'text-red-600' : 'text-green-600'}`}>
                           {product.available === false ? 'Out of Stock' : 'Available'}
                         </span></p>
+                        {/* In the product display section */}
+<p className="text-sm text-gray-700">
+  Stock: {(() => {
+    if (Object.keys(product.stock || {}).length > 0) {
+      return Object.entries(product.stock || {}).map(([key, value]) => 
+        `${key}: ${value}`
+      ).join(', ');
+    }
+    return product.defaultStock || 0;
+  })()}
+</p>
                         <div className="mt-3 flex justify-center sm:justify-start gap-2">
                           <button onClick={() => handleEdit(product)} className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 text-xs sm:text-sm rounded-md transition-colors duration-200">Edit</button>
                           <button onClick={() => handleDelete(product.id)} className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 text-xs sm:text-sm rounded-md transition-colors duration-200">Delete</button>

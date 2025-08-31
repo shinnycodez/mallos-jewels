@@ -26,7 +26,7 @@ const CheckoutPage = () => {
     region: '',
     country: '',
     shippingMethod: 'Standard Delivery',
-    paymentMethod: 'JazzCash/EasyPaisa',
+    paymentMethod: 'Cash on Delivery',
     promoCode: '',
     notes: '',
   });
@@ -70,7 +70,7 @@ const CheckoutPage = () => {
   }, []);
 
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-const shippingCost = form.city.trim().toLowerCase() === 'karachi' ? 250 : 350;
+  const shippingCost = form.city.trim().toLowerCase() === 'karachi' ? 250 : 350;
   const total = subtotal + shippingCost;
 
   const handleChange = (e) => {
@@ -125,6 +125,7 @@ const shippingCost = form.city.trim().toLowerCase() === 'karachi' ? 250 : 350;
       newErrors.email = 'Please enter a valid email address';
     }
 
+    // Only require bank transfer proof for JazzCash/EasyPaisa
     if (form.paymentMethod === 'JazzCash/EasyPaisa' && !bankTransferProofBase64) {
       newErrors.bankTransferProof = 'Please upload a screenshot of your JazzCash transfer or bank transfer receipt.';
     }
@@ -383,19 +384,35 @@ const shippingCost = form.city.trim().toLowerCase() === 'karachi' ? 250 : 350;
               <h2 className="text-lg sm:text-xl font-semibold mt-8 mb-6 pb-2 border-b">Payment Method</h2>
 
               <div className="space-y-4">
-                {['JazzCash/EasyPaisa'].map(method => (
-                  <label key={method} className="flex items-center p-4 border rounded-md hover:border-black cursor-pointer">
-                    <input
-                      type="radio"
-                      name="paymentMethod"
-                      value={method}
-                      checked={form.paymentMethod === method}
-                      onChange={handleChange}
-                      className="h-4 w-4 text-black focus:ring-black border-gray-300"
-                    />
-                    <span className="ml-3 font-medium text-gray-900">{method}</span>
-                  </label>
-                ))}
+                <label className="flex items-center p-4 border rounded-md hover:border-black cursor-pointer">
+                  <input
+                    type="radio"
+                    name="paymentMethod"
+                    value="Cash on Delivery"
+                    checked={form.paymentMethod === 'Cash on Delivery'}
+                    onChange={handleChange}
+                    className="h-4 w-4 text-black focus:ring-black border-gray-300"
+                  />
+                  <div className="ml-3">
+                    <span className="font-medium text-gray-900">Cash on Delivery</span>
+                    <p className="text-sm text-gray-500">Pay when your order is delivered</p>
+                  </div>
+                </label>
+                
+                <label className="flex items-center p-4 border rounded-md hover:border-black cursor-pointer">
+                  <input
+                    type="radio"
+                    name="paymentMethod"
+                    value="JazzCash/EasyPaisa"
+                    checked={form.paymentMethod === 'JazzCash/EasyPaisa'}
+                    onChange={handleChange}
+                    className="h-4 w-4 text-black focus:ring-black border-gray-300"
+                  />
+                  <div className="ml-3">
+                    <span className="font-medium text-gray-900">JazzCash/EasyPaisa</span>
+                    <p className="text-sm text-gray-500">Pay online via mobile wallet</p>
+                  </div>
+                </label>
               </div>
 
               {form.paymentMethod === 'JazzCash/EasyPaisa' && (
@@ -435,6 +452,18 @@ const shippingCost = form.city.trim().toLowerCase() === 'karachi' ? 250 : 350;
                       </p>
                     )}
                   </div>
+                </div>
+              )}
+
+              {form.paymentMethod === 'Cash on Delivery' && (
+                <div className="mt-6 p-4 border border-green-300 bg-green-50 rounded-md">
+                  <h3 className="text-base sm:text-lg font-semibold mb-3">Cash on Delivery Information</h3>
+                  <p className="text-gray-700 text-sm sm:text-base mb-2">
+                    You will pay PKR {total.toLocaleString()} when your order is delivered to your address.
+                  </p>
+                  <p className="text-gray-600 text-sm">
+                    Please have the exact amount ready.
+                  </p>
                 </div>
               )}
 
